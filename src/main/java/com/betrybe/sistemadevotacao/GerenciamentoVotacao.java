@@ -65,18 +65,24 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface {
 
   @Override
   public void mostrarResultado() {
-    int quantidadeDeVotos = cpfsComputados.size();
+    long quantidadeDeVotos = cpfsComputados.size();
+    System.out.println(quantidadeDeVotos);
+
     if (quantidadeDeVotos == 0) {
       System.out.println("É preciso ter pelo menos um voto para mostrar o resultado.");
       return;
     }
 
     for (PessoaCandidata pessoasCandidata : pessoasCandidatas) {
+      String nome = pessoasCandidata.getNome();
+      int votos = pessoasCandidata.getVotos();
+      long razao = Math.round(((double) votos / quantidadeDeVotos) * 100);
+
       System.out.printf(
           "Nome: %s - %d votos ( %d%% ) %n",
-          pessoasCandidata.getNome(),
-          pessoasCandidata.getVotos(),
-          Math.round(pessoasCandidata.getVotos() / quantidadeDeVotos) * 100
+          nome,
+          votos,
+          razao
       );
     }
     System.out.println("Total de votos: " + quantidadeDeVotos);
